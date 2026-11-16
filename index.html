@@ -1,0 +1,1689 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>PNEUS TANAN - Borracharia e Oficina</title>
+  <style>
+    :root {
+      --bg-body: #0d0d0d;
+      --bg-header: #141414;
+      --bg-card: #1c1c1c;
+      --bg-input: #111111;
+      --border-color: #2e2e2e;
+      --accent: #FACC15;
+      --accent-hover: #EAB308;
+      --text-main: #FFFFFF;
+      --text-muted: #A3A3A3;
+      --success: #22C55E;
+      --danger: #EF4444;
+      --danger-bg: rgba(239, 68, 68, 0.14);
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      line-height: 1.45;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Cabeçalho da Placa PNEUS TANAN */
+    header {
+      background-color: var(--bg-header);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      padding: 12px 16px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+    }
+
+    .header-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 46px;
+      height: 46px;
+      background: #0d0d0d;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .brand-title {
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .brand-title .white {
+      color: #FFFFFF;
+    }
+
+    .brand-title .gold {
+      color: var(--accent);
+    }
+
+    .brand-sub {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: #0d0d0d;
+      border: 1px solid var(--border-color);
+      padding: 6px 10px;
+      border-radius: 20px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--success);
+    }
+
+    /* Container Principal */
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 16px 16px 110px 16px;
+    }
+
+    .tab-section {
+      display: none;
+    }
+
+    .tab-section.active {
+      display: block;
+      animation: fadeIn 0.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Cards e Layouts */
+    .card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+      gap: 8px;
+    }
+
+    .card-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-title svg {
+      color: var(--accent);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    @media (max-width: 600px) {
+      .grid-2, .grid-3 {
+        grid-template-columns: 1fr;
+      }
+      .status-badge {
+        display: none;
+      }
+    }
+
+    /* Formulários e Inputs */
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: #E5E5E5;
+      margin-bottom: 6px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    select {
+      width: 100%;
+      background-color: var(--bg-input);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 12px 14px;
+      color: #FFFFFF;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--accent);
+    }
+
+    .input-row-action {
+      display: flex;
+      gap: 8px;
+      align-items: stretch;
+    }
+
+    .input-row-action select {
+      flex: 1;
+    }
+
+    /* Botões */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.1s, background-color 0.15s;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background-color: var(--accent);
+      color: #000000;
+      width: 100%;
+      padding: 15px;
+      font-size: 16px;
+      box-shadow: 0 4px 14px rgba(250, 204, 21, 0.25);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--accent-hover);
+    }
+
+    .btn-icon {
+      padding: 0 14px;
+      border-radius: 10px;
+      background-color: #262626;
+      border: 1px solid var(--border-color);
+      color: #FFFFFF;
+      flex-shrink: 0;
+    }
+
+    .btn-icon.add {
+      color: var(--accent);
+      border-color: rgba(250, 204, 21, 0.4);
+    }
+
+    .btn-icon.del {
+      color: var(--danger);
+      border-color: rgba(239, 68, 68, 0.4);
+      background-color: var(--danger-bg);
+    }
+
+    .btn-sm {
+      padding: 8px 12px;
+      font-size: 12px;
+      border-radius: 8px;
+    }
+
+    .btn-danger-outline {
+      background-color: var(--danger-bg);
+      color: var(--danger);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+    }
+
+    .btn-secondary {
+      background-color: #262626;
+      color: #FFFFFF;
+      border: 1px solid var(--border-color);
+    }
+
+    /* Painel de Prévia de Valores */
+    .preview-box {
+      background-color: #111111;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 16px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      text-align: center;
+    }
+
+    .preview-item span {
+      display: block;
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .preview-item strong {
+      font-size: 16px;
+      font-weight: 900;
+    }
+
+    .val-total { color: #FFFFFF; }
+    .val-func { color: var(--accent); }
+    .val-shop { color: var(--success); }
+
+    /* Pills de Filtro */
+    .filter-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .pill {
+      background-color: #111111;
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .pill.active {
+      background-color: var(--accent);
+      color: #000000;
+      border-color: var(--accent);
+    }
+
+    /* Stat Cards */
+    .stat-card {
+      background-color: #111111;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .stat-value {
+      font-size: 22px;
+      font-weight: 900;
+      margin-top: 4px;
+    }
+
+    /* Listas e Itens */
+    .list-item {
+      background-color: #111111;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .list-item-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .list-item-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: #FFFFFF;
+      word-break: break-word;
+    }
+
+    .list-item-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    .badge-gold {
+      display: inline-block;
+      background-color: rgba(250, 204, 21, 0.15);
+      color: var(--accent);
+      border: 1px solid rgba(250, 204, 21, 0.35);
+      font-size: 11px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+
+    /* Tabela de Rendimento por Funcionário */
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th {
+      text-align: left;
+      padding: 10px 8px;
+      color: var(--text-muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    td {
+      padding: 12px 8px;
+      border-bottom: 1px solid #242424;
+      font-weight: 700;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .day-group-header {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--accent);
+      background: #141414;
+      padding: 8px 12px;
+      border-radius: 8px;
+      margin: 16px 0 8px 0;
+      border-left: 3px solid var(--accent);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* Barra de Navegação Inferior Fixa */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      background-color: #141414;
+      border-top: 1px solid var(--border-color);
+      padding: 8px 10px;
+      box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.75);
+    }
+
+    .bottom-nav-inner {
+      max-width: 700px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    .nav-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      border-radius: 10px;
+      padding: 8px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .nav-btn.active {
+      background-color: var(--accent);
+      color: #000000;
+      font-weight: 900;
+    }
+
+    /* Modais Customizados (Sem alert/confirm nativo) */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal-box {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      width: 100%;
+      max-width: 420px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    }
+
+    .modal-title {
+      font-size: 18px;
+      font-weight: 900;
+      margin-bottom: 10px;
+      color: #FFFFFF;
+    }
+
+    .modal-text {
+      font-size: 14px;
+      color: #D4D4D4;
+      margin-bottom: 18px;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      top: 76px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-20px);
+      background-color: #1c1c1c;
+      border: 1px solid var(--accent);
+      color: #FFFFFF;
+      padding: 12px 18px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 800;
+      z-index: 120;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.25s ease;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8);
+      white-space: nowrap;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .toast.error {
+      border-color: var(--danger);
+      color: #FCA5A5;
+    }
+
+    .empty-msg {
+      text-align: center;
+      color: var(--text-muted);
+      padding: 24px 12px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cabeçalho PNEUS TANAN -->
+  <header>
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-icon">
+          <!-- Desenho SVG do Pneu -->
+          <svg width="34" height="34" viewBox="0 0 64 64" fill="none">
+            <circle cx="32" cy="32" r="27" stroke="#E5E5E5" stroke-width="5" stroke-dasharray="6 3"/>
+            <circle cx="32" cy="32" r="23" stroke="#FFFFFF" stroke-width="2"/>
+            <circle cx="32" cy="32" r="13" fill="#1c1c1c" stroke="#FACC15" stroke-width="2.5"/>
+            <path d="M32 19V45M19 32H45M22.8 22.8L41.2 41.2M41.2 22.8L22.8 41.2" stroke="#D4D4D4" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="32" cy="32" r="4" fill="#FACC15"/>
+            <path d="M51 20H61M54 32H62M51 44H61" stroke="#FACC15" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title">
+            <span class="white">PNEUS</span> <span class="gold">TANAN</span>
+          </div>
+          <div class="brand-sub">Borracharia &amp; Oficina</div>
+        </div>
+      </div>
+
+      <div class="status-badge">
+        <span class="status-dot"></span>
+        <span>Sistema Salvo</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Toast de Notificação -->
+  <div id="toast" class="toast">Ação concluída!</div>
+
+  <!-- Conteúdo Principal -->
+  <main>
+
+    <!-- ========================================================= -->
+    <!-- ABA 1: LANÇAR SERVIÇO                                     -->
+    <!-- ========================================================= -->
+    <section id="sec-lancar" class="tab-section active">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+            Registrar Entrada de Serviço
+          </div>
+        </div>
+
+        <form id="form-service" onsubmit="handleRegisterService(event)">
+          <!-- Tipo do Serviço com botões + e Excluir -->
+          <div class="form-group">
+            <label for="input-service-type">Tipo do Serviço *</label>
+            <div class="input-row-action">
+              <select id="input-service-type" required></select>
+              <button type="button" class="btn btn-icon add" onclick="openNewTypeModal()" title="Adicionar novo tipo de serviço">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </button>
+              <button type="button" class="btn btn-icon del" onclick="deleteSelectedServiceType()" title="Excluir tipo de serviço selecionado">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Valor do Serviço -->
+          <div class="form-group">
+            <label for="input-value">Valor do Serviço (R$) *</label>
+            <input type="number" id="input-value" step="0.01" min="0" placeholder="Ex: 35.00" required oninput="updateLivePreview()">
+          </div>
+
+          <!-- Funcionário e Porcentagem -->
+          <div class="grid-2">
+            <div class="form-group">
+              <label for="input-employee">Funcionário *</label>
+              <select id="input-employee" required onchange="onEmployeeSelectChange()"></select>
+            </div>
+
+            <div class="form-group">
+              <label for="input-percent">Porcentagem do Funcionário (%) *</label>
+              <input type="number" id="input-percent" step="1" min="0" max="100" value="50" required oninput="updateLivePreview()">
+            </div>
+          </div>
+
+          <!-- Painel de Prévia em Tempo Real -->
+          <div class="preview-box">
+            <div class="preview-item">
+              <span>Valor Total</span>
+              <strong id="prev-total" class="val-total">R$ 0,00</strong>
+            </div>
+            <div class="preview-item">
+              <span>Funcionário</span>
+              <strong id="prev-func" class="val-func">R$ 0,00</strong>
+            </div>
+            <div class="preview-item">
+              <span>Oficina</span>
+              <strong id="prev-shop" class="val-shop">R$ 0,00</strong>
+            </div>
+          </div>
+
+          <!-- Data e Observação Opcional -->
+          <div class="grid-2">
+            <div class="form-group">
+              <label for="input-date">Data do Serviço</label>
+              <input type="date" id="input-date" required>
+            </div>
+
+            <div class="form-group">
+              <label for="input-note">Observação / Placa / Veículo (Opcional)</label>
+              <input type="text" id="input-note" placeholder="Ex: Moto CG / Pneu dianteiro">
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Registrar Serviço
+          </button>
+        </form>
+      </div>
+
+      <!-- Últimos Lançamentos do Dia -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Últimos Serviços Registrados</div>
+          <span id="today-count-badge" class="badge-gold">0 hoje</span>
+        </div>
+        <div id="recent-services-list"></div>
+      </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- ABA 2: BALANÇO GERAL                                      -->
+    <!-- ========================================================= -->
+    <section id="sec-balanco" class="tab-section">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            Balanço Geral da Oficina
+          </div>
+        </div>
+
+        <!-- Filtro de Período para os Cards Gerais -->
+        <div class="filter-pills" id="balance-period-pills">
+          <button type="button" class="pill active" onclick="setBalancePeriod('hoje', this)">Hoje</button>
+          <button type="button" class="pill" onclick="setBalancePeriod('semana', this)">Esta Semana</button>
+          <button type="button" class="pill" onclick="setBalancePeriod('mes', this)">Este Mês</button>
+          <button type="button" class="pill" onclick="setBalancePeriod('tudo', this)">Tudo</button>
+        </div>
+
+        <div class="grid-3">
+          <div class="stat-card">
+            <div class="stat-label">Faturamento Bruto</div>
+            <div id="bal-total-gross" class="stat-value val-total">R$ 0,00</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Comissões Equipe</div>
+            <div id="bal-total-comm" class="stat-value val-func">R$ 0,00</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Líquido Oficina</div>
+            <div id="bal-total-shop" class="stat-value val-shop">R$ 0,00</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rendimento Individual por Funcionário (Dia / Semana / Mês) -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Rendimento por Funcionário</div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Funcionário</th>
+                <th>Hoje (Dia)</th>
+                <th>Semana</th>
+                <th>Mês</th>
+                <th>Qtd.</th>
+              </tr>
+            </thead>
+            <tbody id="employee-balance-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- ABA 3: EXTRATO DETALHADO                                  -->
+    <!-- ========================================================= -->
+    <section id="sec-extrato" class="tab-section">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            Extrato Detalhado por Dia
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="filter-ext-emp">Filtrar por Funcionário</label>
+            <select id="filter-ext-emp" onchange="renderStatement()"></select>
+          </div>
+
+          <div class="form-group">
+            <label for="filter-ext-period">Período</label>
+            <select id="filter-ext-period" onchange="onStatementPeriodChange()">
+              <option value="hoje">Hoje</option>
+              <option value="semana">Esta Semana</option>
+              <option value="mes">Este Mês</option>
+              <option value="data">Data Específica</option>
+              <option value="tudo">Todo o Histórico</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="filter-ext-date-wrap" class="form-group" style="display: none;">
+          <label for="filter-ext-date">Selecione o Dia</label>
+          <input type="date" id="filter-ext-date" onchange="renderStatement()">
+        </div>
+
+        <!-- Resumo do Filtro -->
+        <div class="preview-box" style="margin-bottom: 0;">
+          <div class="preview-item">
+            <span>Serviços</span>
+            <strong id="ext-sum-count" class="val-total">0</strong>
+          </div>
+          <div class="preview-item">
+            <span>Total Produzido</span>
+            <strong id="ext-sum-gross" class="val-total">R$ 0,00</strong>
+          </div>
+          <div class="preview-item">
+            <span>Ganho Funcionário</span>
+            <strong id="ext-sum-comm" class="val-func">R$ 0,00</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lista Agrupada por Dia -->
+      <div id="statement-list-container"></div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- ABA 4: EQUIPE E TIPOS DE SERVIÇO                          -->
+    <!-- ========================================================= -->
+    <section id="sec-equipe" class="tab-section">
+      <!-- Gestão de Funcionários -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Cadastrar Funcionário
+          </div>
+        </div>
+
+        <form onsubmit="handleAddEmployee(event)">
+          <div class="grid-2">
+            <div class="form-group">
+              <label for="new-emp-name">Nome do Funcionário *</label>
+              <input type="text" id="new-emp-name" placeholder="Ex: João / Carlos" required>
+            </div>
+            <div class="form-group">
+              <label for="new-emp-percent">Porcentagem Padrão (%) *</label>
+              <input type="number" id="new-emp-percent" min="0" max="100" value="50" required>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Cadastrar Funcionário</button>
+        </form>
+
+        <div style="margin-top: 18px;">
+          <label>Equipe Cadastrada</label>
+          <div id="employees-list"></div>
+        </div>
+      </div>
+
+      <!-- Gestão de Tipos de Serviço -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+            Catálogo de Tipos de Serviço
+          </div>
+        </div>
+
+        <form onsubmit="handleAddServiceTypeFromTab(event)">
+          <div class="form-group">
+            <label for="new-type-name-tab">Novo Tipo de Serviço *</label>
+            <div class="input-row-action">
+              <input type="text" id="new-type-name-tab" placeholder="Ex: Desempeno de Roda" required>
+              <button type="submit" class="btn btn-primary" style="width: auto; padding: 0 18px;">Adicionar</button>
+            </div>
+          </div>
+        </form>
+
+        <div style="margin-top: 14px;">
+          <label>Serviços Disponíveis</label>
+          <div id="service-types-manage-list"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Barra de Navegação Inferior Fixa -->
+  <nav class="bottom-nav">
+    <div class="bottom-nav-inner">
+      <button type="button" class="nav-btn active" id="nav-lancar" onclick="switchTab('lancar')">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        <span>Lançar</span>
+      </button>
+
+      <button type="button" class="nav-btn" id="nav-balanco" onclick="switchTab('balanco')">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        <span>Balanço</span>
+      </button>
+
+      <button type="button" class="nav-btn" id="nav-extrato" onclick="switchTab('extrato')">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        <span>Extrato</span>
+      </button>
+
+      <button type="button" class="nav-btn" id="nav-equipe" onclick="switchTab('equipe')">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span>Equipe</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Modal: Adicionar Novo Tipo de Serviço Rápido -->
+  <div id="modal-new-type" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-title">Novo Tipo de Serviço</div>
+      <div class="form-group">
+        <label for="modal-type-input">Nome do Serviço</label>
+        <input type="text" id="modal-type-input" placeholder="Ex: Conserto de Câmara">
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-secondary btn-sm" onclick="closeModal('modal-new-type')">Cancelar</button>
+        <button type="button" class="btn btn-primary btn-sm" style="width: auto;" onclick="confirmAddServiceTypeModal()">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Editar Porcentagem do Funcionário -->
+  <div id="modal-edit-emp" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-title">Editar Funcionário</div>
+      <input type="hidden" id="edit-emp-id">
+      <div class="form-group">
+        <label for="edit-emp-name">Nome</label>
+        <input type="text" id="edit-emp-name">
+      </div>
+      <div class="form-group">
+        <label for="edit-emp-percent">Porcentagem Padrão (%)</label>
+        <input type="number" id="edit-emp-percent" min="0" max="100">
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-secondary btn-sm" onclick="closeModal('modal-edit-emp')">Cancelar</button>
+        <button type="button" class="btn btn-primary btn-sm" style="width: auto;" onclick="confirmEditEmployee()">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Confirmação Genérica (Substitui confirm()) -->
+  <div id="modal-confirm" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-title">Confirmar Exclusão</div>
+      <div id="confirm-message" class="modal-text">Tem certeza?</div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-secondary btn-sm" onclick="closeModal('modal-confirm')">Cancelar</button>
+        <button type="button" class="btn btn-danger-outline btn-sm" id="confirm-yes-btn">Excluir</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // =========================================================================
+    // ARMAZENAMENTO SEGURO (localStorage com fallback em memória)
+    // =========================================================================
+    const memoryStorage = {};
+    function safeGetItem(key) {
+      try {
+        return window.localStorage.getItem(key);
+      } catch (e) {
+        return memoryStorage[key] || null;
+      }
+    }
+
+    function safeSetItem(key, value) {
+      try {
+        window.localStorage.setItem(key, value);
+      } catch (e) {
+        memoryStorage[key] = value;
+      }
+    }
+
+    // =========================================================================
+    // ESTADO INICIAL DO APLICATIVO
+    // =========================================================================
+    const DEFAULT_SERVICE_TYPES = [
+      { id: "st_1", name: "Remendo de Pneu" },
+      { id: "st_2", name: "Troca de Pneu" },
+      { id: "st_3", name: "Vulcanização" },
+      { id: "st_4", name: "Alinhamento / Balanceamento" },
+      { id: "st_5", name: "Troca de Óleo" },
+      { id: "st_6", name: "Revisão de Freios" },
+      { id: "st_7", name: "Troca de Câmara" },
+      { id: "st_8", name: "Manutenção Geral" }
+    ];
+
+    const DEFAULT_EMPLOYEES = [
+      { id: "emp_1", name: "Tanan", defaultPercent: 50 },
+      { id: "emp_2", name: "Borracheiro 01", defaultPercent: 40 }
+    ];
+
+    let state = {
+      serviceTypes: [],
+      employees: [],
+      records: [],
+      balancePeriod: "hoje"
+    };
+
+    function loadState() {
+      const savedTypes = safeGetItem("pt_service_types");
+      const savedEmps = safeGetItem("pt_employees");
+      const savedRecs = safeGetItem("pt_records");
+
+      state.serviceTypes = savedTypes ? JSON.parse(savedTypes) : DEFAULT_SERVICE_TYPES.slice();
+      state.employees = savedEmps ? JSON.parse(savedEmps) : DEFAULT_EMPLOYEES.slice();
+      state.records = savedRecs ? JSON.parse(savedRecs) : [];
+
+      if (!savedTypes) saveServiceTypes();
+      if (!savedEmps) saveEmployees();
+    }
+
+    function saveServiceTypes() {
+      safeSetItem("pt_service_types", JSON.stringify(state.serviceTypes));
+    }
+
+    function saveEmployees() {
+      safeSetItem("pt_employees", JSON.stringify(state.employees));
+    }
+
+    function saveRecords() {
+      safeSetItem("pt_records", JSON.stringify(state.records));
+    }
+
+    // =========================================================================
+    // UTILITÁRIOS DE DATA E MOEDA
+    // =========================================================================
+    function getTodayISO() {
+      const now = new Date();
+      const y = now.getFullYear();
+      const m = String(now.getMonth() + 1).padStart(2, "0");
+      const d = String(now.getDate()).padStart(2, "0");
+      return y + "-" + m + "-" + d;
+    }
+
+    function formatCurrency(val) {
+      const num = Number(val) || 0;
+      return "R$ " + num.toFixed(2).replace(".", ",");
+    }
+
+    function formatDateBR(isoStr) {
+      if (!isoStr) return "";
+      const parts = isoStr.split("-");
+      if (parts.length !== 3) return isoStr;
+      return parts[2] + "/" + parts[1] + "/" + parts[0];
+    }
+
+    function isDateInPeriod(isoDate, period, specificDate) {
+      if (period === "tudo") return true;
+      const today = getTodayISO();
+      if (period === "hoje") return isoDate === today;
+      if (period === "data") return isoDate === specificDate;
+
+      const target = new Date(isoDate + "T12:00:00");
+      const now = new Date(today + "T12:00:00");
+
+      if (period === "semana") {
+        const dayOfWeek = now.getDay(); // 0 = Domingo
+        const startOfWeek = new Date(now);
+        startOfWeek.setDate(now.getDate() - dayOfWeek);
+        startOfWeek.setHours(0, 0, 0, 0);
+
+        const endOfWeek = new Date(startOfWeek);
+        endOfWeek.setDate(startOfWeek.getDate() + 6);
+        endOfWeek.setHours(23, 59, 59, 999);
+
+        return target >= startOfWeek && target <= endOfWeek;
+      }
+
+      if (period === "mes") {
+        return isoDate.slice(0, 7) === today.slice(0, 7);
+      }
+
+      return true;
+    }
+
+    function escapeHTML(str) {
+      return String(str || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    // =========================================================================
+    // TOAST E MODAIS
+    // =========================================================================
+    let toastTimer = null;
+    function showToast(msg, isError) {
+      const toast = document.getElementById("toast");
+      toast.textContent = msg;
+      toast.className = "toast show" + (isError ? " error" : "");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(function () {
+        toast.classList.remove("show");
+      }, 2800);
+    }
+
+    function openModal(id) {
+      document.getElementById(id).classList.add("open");
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove("open");
+    }
+
+    let pendingConfirmAction = null;
+    function askConfirm(message, onConfirm) {
+      document.getElementById("confirm-message").textContent = message;
+      pendingConfirmAction = onConfirm;
+      openModal("modal-confirm");
+    }
+
+    document.getElementById("confirm-yes-btn").addEventListener("click", function () {
+      closeModal("modal-confirm");
+      if (typeof pendingConfirmAction === "function") {
+        pendingConfirmAction();
+        pendingConfirmAction = null;
+      }
+    });
+
+    // =========================================================================
+    // NAVEGAÇÃO ENTRE ABAS
+    // =========================================================================
+    function switchTab(tabName) {
+      const tabs = ["lancar", "balanco", "extrato", "equipe"];
+      tabs.forEach(function (t) {
+        document.getElementById("sec-" + t).classList.remove("active");
+        document.getElementById("nav-" + t).classList.remove("active");
+      });
+
+      document.getElementById("sec-" + tabName).classList.add("active");
+      document.getElementById("nav-" + tabName).classList.add("active");
+
+      if (tabName === "lancar") {
+        renderFormSelects();
+        renderRecentServices();
+      } else if (tabName === "balanco") {
+        renderBalance();
+      } else if (tabName === "extrato") {
+        renderStatementFilters();
+        renderStatement();
+      } else if (tabName === "equipe") {
+        renderTeamAndTypes();
+      }
+    }
+
+    // =========================================================================
+    // ABA 1: LANÇAMENTO DE SERVIÇO
+    // =========================================================================
+    function renderFormSelects() {
+      const typeSelect = document.getElementById("input-service-type");
+      const currentTypeVal = typeSelect.value;
+
+      if (state.serviceTypes.length === 0) {
+        typeSelect.innerHTML = '<option value="">Nenhum serviço cadastrado</option>';
+      } else {
+        typeSelect.innerHTML = state.serviceTypes.map(function (t) {
+          return '<option value="' + escapeHTML(t.id) + '">' + escapeHTML(t.name) + '</option>';
+        }).join("");
+        if (currentTypeVal && state.serviceTypes.some(function (t) { return t.id === currentTypeVal; })) {
+          typeSelect.value = currentTypeVal;
+        }
+      }
+
+      const empSelect = document.getElementById("input-employee");
+      const currentEmpVal = empSelect.value;
+
+      if (state.employees.length === 0) {
+        empSelect.innerHTML = '<option value="">Cadastre um funcionário</option>';
+      } else {
+        empSelect.innerHTML = state.employees.map(function (e) {
+          return '<option value="' + escapeHTML(e.id) + '">' + escapeHTML(e.name) + ' (' + e.defaultPercent + '%)</option>';
+        }).join("");
+        if (currentEmpVal && state.employees.some(function (e) { return e.id === currentEmpVal; })) {
+          empSelect.value = currentEmpVal;
+        }
+      }
+
+      onEmployeeSelectChange();
+    }
+
+    function onEmployeeSelectChange() {
+      const empId = document.getElementById("input-employee").value;
+      const emp = state.employees.find(function (e) { return e.id === empId; });
+      if (emp) {
+        document.getElementById("input-percent").value = emp.defaultPercent;
+      }
+      updateLivePreview();
+    }
+
+    function updateLivePreview() {
+      const val = parseFloat(document.getElementById("input-value").value) || 0;
+      const pct = parseFloat(document.getElementById("input-percent").value) || 0;
+      const clampedPct = Math.max(0, Math.min(100, pct));
+
+      const commVal = (val * clampedPct) / 100;
+      const shopVal = val - commVal;
+
+      document.getElementById("prev-total").textContent = formatCurrency(val);
+      document.getElementById("prev-func").textContent = formatCurrency(commVal);
+      document.getElementById("prev-shop").textContent = formatCurrency(shopVal);
+    }
+
+    function openNewTypeModal() {
+      document.getElementById("modal-type-input").value = "";
+      openModal("modal-new-type");
+      setTimeout(function () {
+        document.getElementById("modal-type-input").focus();
+      }, 100);
+    }
+
+    function confirmAddServiceTypeModal() {
+      const name = document.getElementById("modal-type-input").value.trim();
+      if (!name) {
+        showToast("Digite o nome do serviço.", true);
+        return;
+      }
+      const newObj = { id: "st_" + Date.now(), name: name };
+      state.serviceTypes.push(newObj);
+      saveServiceTypes();
+      closeModal("modal-new-type");
+      renderFormSelects();
+      document.getElementById("input-service-type").value = newObj.id;
+      showToast("Tipo de serviço adicionado!");
+    }
+
+    function deleteSelectedServiceType() {
+      const select = document.getElementById("input-service-type");
+      const id = select.value;
+      if (!id) {
+        showToast("Nenhum serviço selecionado.", true);
+        return;
+      }
+      const target = state.serviceTypes.find(function (t) { return t.id === id; });
+      const label = target ? '"' + target.name + '"' : "este serviço";
+
+      askConfirm("Deseja excluir " + label + " da lista de tipos de serviço?", function () {
+        state.serviceTypes = state.serviceTypes.filter(function (t) { return t.id !== id; });
+        saveServiceTypes();
+        renderFormSelects();
+        showToast("Tipo de serviço excluído!");
+      });
+    }
+
+    function handleRegisterService(event) {
+      event.preventDefault();
+
+      const typeId = document.getElementById("input-service-type").value;
+      const empId = document.getElementById("input-employee").value;
+      const value = parseFloat(document.getElementById("input-value").value);
+      const percent = parseFloat(document.getElementById("input-percent").value);
+      const date = document.getElementById("input-date").value || getTodayISO();
+      const note = document.getElementById("input-note").value.trim();
+
+      if (!typeId) {
+        showToast("Selecione ou cadastre um tipo de serviço.", true);
+        return;
+      }
+      if (!empId) {
+        showToast("Selecione ou cadastre um funcionário.", true);
+        return;
+      }
+      if (isNaN(value) || value <= 0) {
+        showToast("Informe um valor maior que zero.", true);
+        return;
+      }
+      if (isNaN(percent) || percent < 0 || percent > 100) {
+        showToast("Porcentagem deve ser entre 0% e 100%.", true);
+        return;
+      }
+
+      const serviceTypeObj = state.serviceTypes.find(function (t) { return t.id === typeId; });
+      const employeeObj = state.employees.find(function (e) { return e.id === empId; });
+
+      const commissionValue = (value * percent) / 100;
+      const shopValue = value - commissionValue;
+
+      const record = {
+        id: "rec_" + Date.now(),
+        date: date,
+        serviceTypeId: typeId,
+        serviceName: serviceTypeObj ? serviceTypeObj.name : "Serviço",
+        employeeId: empId,
+        employeeName: employeeObj ? employeeObj.name : "Funcionário",
+        value: value,
+        percent: percent,
+        commissionValue: commissionValue,
+        shopValue: shopValue,
+        note: note
+      };
+
+      state.records.unshift(record);
+      saveRecords();
+
+      document.getElementById("input-value").value = "";
+      document.getElementById("input-note").value = "";
+      updateLivePreview();
+      renderRecentServices();
+      showToast("Serviço registrado com sucesso!");
+    }
+
+    function renderRecentServices() {
+      const container = document.getElementById("recent-services-list");
+      const today = getTodayISO();
+      const todayRecords = state.records.filter(function (r) { return r.date === today; });
+
+      document.getElementById("today-count-badge").textContent = todayRecords.length + " hoje";
+
+      const recent = state.records.slice(0, 6);
+      if (recent.length === 0) {
+        container.innerHTML = '<div class="empty-msg">Nenhum serviço registrado ainda.</div>';
+        return;
+      }
+
+      container.innerHTML = recent.map(function (r) {
+        return (
+          '<div class="list-item">' +
+            '<div class="list-item-info">' +
+              '<div class="list-item-title">' + escapeHTML(r.serviceName) + ' <span class="badge-gold">' + r.percent + '%</span></div>' +
+              '<div class="list-item-sub">' +
+                '<strong>' + escapeHTML(r.employeeName) + '</strong> • ' + formatDateBR(r.date) +
+                (r.note ? ' • ' + escapeHTML(r.note) : '') +
+              '</div>' +
+            '</div>' +
+            '<div style="text-align: right;">' +
+              '<div style="font-weight: 900; color: #fff;">' + formatCurrency(r.value) + '</div>' +
+              '<div style="font-size: 12px; font-weight: 800; color: var(--accent);">Func: ' + formatCurrency(r.commissionValue) + '</div>' +
+            '</div>' +
+          '</div>'
+        );
+      }).join("");
+    }
+
+    // =========================================================================
+    // ABA 2: BALANÇO GERAL
+    // =========================================================================
+    function setBalancePeriod(period, btnEl) {
+      state.balancePeriod = period;
+      const pills = document.querySelectorAll("#balance-period-pills .pill");
+      pills.forEach(function (p) { p.classList.remove("active"); });
+      btnEl.classList.add("active");
+      renderBalance();
+    }
+
+    function renderBalance() {
+      const filtered = state.records.filter(function (r) {
+        return isDateInPeriod(r.date, state.balancePeriod, null);
+      });
+
+      let totalGross = 0;
+      let totalComm = 0;
+      let totalShop = 0;
+
+      filtered.forEach(function (r) {
+        totalGross += r.value;
+        totalComm += r.commissionValue;
+        totalShop += r.shopValue;
+      });
+
+      document.getElementById("bal-total-gross").textContent = formatCurrency(totalGross);
+      document.getElementById("bal-total-comm").textContent = formatCurrency(totalComm);
+      document.getElementById("bal-total-shop").textContent = formatCurrency(totalShop);
+
+      // Tabela individual por funcionário (Hoje, Semana, Mês)
+      const tbody = document.getElementById("employee-balance-tbody");
+
+      // Combina funcionários cadastrados + eventuais nomes históricos
+      const empMap = {};
+      state.employees.forEach(function (e) {
+        empMap[e.id] = { name: e.name, day: 0, week: 0, month: 0, count: 0 };
+      });
+
+      state.records.forEach(function (r) {
+        if (!empMap[r.employeeId]) {
+          empMap[r.employeeId] = { name: r.employeeName, day: 0, week: 0, month: 0, count: 0 };
+        }
+        const entry = empMap[r.employeeId];
+        if (isDateInPeriod(r.date, "hoje", null)) {
+          entry.day += r.commissionValue;
+        }
+        if (isDateInPeriod(r.date, "semana", null)) {
+          entry.week += r.commissionValue;
+        }
+        if (isDateInPeriod(r.date, "mes", null)) {
+          entry.month += r.commissionValue;
+          entry.count += 1;
+        }
+      });
+
+      const rows = Object.values(empMap);
+      if (rows.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="empty-msg">Nenhum funcionário cadastrado.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = rows.map(function (row) {
+        return (
+          '<tr>' +
+            '<td style="color: #fff;">' + escapeHTML(row.name) + '</td>' +
+            '<td style="color: var(--accent);">' + formatCurrency(row.day) + '</td>' +
+            '<td style="color: #fff;">' + formatCurrency(row.week) + '</td>' +
+            '<td style="color: var(--success);">' + formatCurrency(row.month) + '</td>' +
+            '<td style="color: var(--text-muted);">' + row.count + '</td>' +
+          '</tr>'
+        );
+      }).join("");
+    }
+
+    // =========================================================================
+    // ABA 3: EXTRATO DETALHADO
+    // =========================================================================
+    function renderStatementFilters() {
+      const empFilter = document.getElementById("filter-ext-emp");
+      const current = empFilter.value || "todos";
+
+      let html = '<option value="todos">Todos os Funcionários</option>';
+      state.employees.forEach(function (e) {
+        html += '<option value="' + escapeHTML(e.id) + '">' + escapeHTML(e.name) + '</option>';
+      });
+      empFilter.innerHTML = html;
+      empFilter.value = current;
+
+      const dateInput = document.getElementById("filter-ext-date");
+      if (!dateInput.value) {
+        dateInput.value = getTodayISO();
+      }
+    }
+
+    function onStatementPeriodChange() {
+      const period = document.getElementById("filter-ext-period").value;
+      const dateWrap = document.getElementById("filter-ext-date-wrap");
+      dateWrap.style.display = period === "data" ? "block" : "none";
+      renderStatement();
+    }
+
+    function renderStatement() {
+      const empId = document.getElementById("filter-ext-emp").value;
+      const period = document.getElementById("filter-ext-period").value;
+      const specificDate = document.getElementById("filter-ext-date").value;
+
+      const filtered = state.records.filter(function (r) {
+        const matchEmp = empId === "todos" || r.employeeId === empId;
+        const matchDate = isDateInPeriod(r.date, period, specificDate);
+        return matchEmp && matchDate;
+      });
+
+      let sumGross = 0;
+      let sumComm = 0;
+
+      filtered.forEach(function (r) {
+        sumGross += r.value;
+        sumComm += r.commissionValue;
+      });
+
+      document.getElementById("ext-sum-count").textContent = filtered.length;
+      document.getElementById("ext-sum-gross").textContent = formatCurrency(sumGross);
+      document.getElementById("ext-sum-comm").textContent = formatCurrency(sumComm);
+
+      const container = document.getElementById("statement-list-container");
+      if (filtered.length === 0) {
+        container.innerHTML = '<div class="card"><div class="empty-msg">Nenhum serviço encontrado para este filtro.</div></div>';
+        return;
+      }
+
+      // Agrupar por data
+      const groups = {};
+      filtered.forEach(function (r) {
+        if (!groups[r.date]) groups[r.date] = [];
+        groups[r.date].push(r);
+      });
+
+      const sortedDates = Object.keys(groups).sort().reverse();
+
+      container.innerHTML = sortedDates.map(function (dateKey) {
+        const items = groups[dateKey];
+        let dayComm = 0;
+        items.forEach(function (item) { dayComm += item.commissionValue; });
+
+        const itemsHtml = items.map(function (r) {
+          return (
+            '<div class="list-item">' +
+              '<div class="list-item-info">' +
+                '<div class="list-item-title">' + escapeHTML(r.serviceName) + ' <span class="badge-gold">' + r.percent + '%</span></div>' +
+                '<div class="list-item-sub">' +
+                  '<strong>' + escapeHTML(r.employeeName) + '</strong>' +
+                  (r.note ? ' • ' + escapeHTML(r.note) : '') +
+                '</div>' +
+                '<div class="list-item-sub" style="margin-top: 4px;">' +
+                  'Serviço: <strong style="color:#fff;">' + formatCurrency(r.value) + '</strong> | ' +
+                  'Comissão: <strong style="color:var(--accent);">' + formatCurrency(r.commissionValue) + '</strong>' +
+                '</div>' +
+              '</div>' +
+              '<button type="button" class="btn btn-danger-outline btn-sm" onclick="deleteRecord(\'' + escapeHTML(r.id) + '\')" title="Excluir lançamento">Excluir</button>' +
+            '</div>'
+          );
+        }).join("");
+
+        return (
+          '<div>' +
+            '<div class="day-group-header">' +
+              '<span>Data: ' + formatDateBR(dateKey) + '</span>' +
+              '<span>Rendeu: ' + formatCurrency(dayComm) + '</span>' +
+            '</div>' +
+            itemsHtml +
+          '</div>'
+        );
+      }).join("");
+    }
+
+    function deleteRecord(recordId) {
+      askConfirm("Deseja realmente excluir este lançamento do histórico?", function () {
+        state.records = state.records.filter(function (r) { return r.id !== recordId; });
+        saveRecords();
+        renderStatement();
+        showToast("Lançamento excluído!");
+      });
+    }
+
+    // =========================================================================
+    // ABA 4: EQUIPE E CATÁLOGO DE SERVIÇOS
+    // =========================================================================
+    function handleAddEmployee(event) {
+      event.preventDefault();
+      const nameInput = document.getElementById("new-emp-name");
+      const pctInput = document.getElementById("new-emp-percent");
+
+      const name = nameInput.value.trim();
+      const pct = parseFloat(pctInput.value);
+
+      if (!name) {
+        showToast("Digite o nome do funcionário.", true);
+        return;
+      }
+      if (isNaN(pct) || pct < 0 || pct > 100) {
+        showToast("Porcentagem inválida.", true);
+        return;
+      }
+
+      state.employees.push({
+        id: "emp_" + Date.now(),
+        name: name,
+        defaultPercent: pct
+      });
+      saveEmployees();
+      nameInput.value = "";
+      pctInput.value = "50";
+      renderTeamAndTypes();
+      showToast("Funcionário cadastrado!");
+    }
+
+    function openEditEmployeeModal(empId) {
+      const emp = state.employees.find(function (e) { return e.id === empId; });
+      if (!emp) return;
+      document.getElementById("edit-emp-id").value = emp.id;
+      document.getElementById("edit-emp-name").value = emp.name;
+      document.getElementById("edit-emp-percent").value = emp.defaultPercent;
+      openModal("modal-edit-emp");
+    }
+
+    function confirmEditEmployee() {
+      const id = document.getElementById("edit-emp-id").value;
+      const name = document.getElementById("edit-emp-name").value.trim();
+      const pct = parseFloat(document.getElementById("edit-emp-percent").value);
+
+      if (!name || isNaN(pct) || pct < 0 || pct > 100) {
+        showToast("Verifique o nome e a porcentagem.", true);
+        return;
+      }
+
+      const emp = state.employees.find(function (e) { return e.id === id; });
+      if (emp) {
+        emp.name = name;
+        emp.defaultPercent = pct;
+        saveEmployees();
+        closeModal("modal-edit-emp");
+        renderTeamAndTypes();
+        showToast("Funcionário atualizado!");
+      }
+    }
+
+    function deleteEmployee(empId) {
+      askConfirm("Deseja excluir este funcionário da equipe?", function () {
+        state.employees = state.employees.filter(function (e) { return e.id !== empId; });
+        saveEmployees();
+        renderTeamAndTypes();
+        showToast("Funcionário removido!");
+      });
+    }
+
+    function handleAddServiceTypeFromTab(event) {
+      event.preventDefault();
+      const input = document.getElementById("new-type-name-tab");
+      const name = input.value.trim();
+      if (!name) return;
+
+      state.serviceTypes.push({ id: "st_" + Date.now(), name: name });
+      saveServiceTypes();
+      input.value = "";
+      renderTeamAndTypes();
+      showToast("Serviço adicionado ao catálogo!");
+    }
+
+    function deleteServiceTypeFromTab(typeId) {
+      askConfirm("Deseja excluir este tipo de serviço?", function () {
+        state.serviceTypes = state.serviceTypes.filter(function (t) { return t.id !== typeId; });
+        saveServiceTypes();
+        renderTeamAndTypes();
+        showToast("Tipo de serviço excluído!");
+      });
+    }
+
+    function renderTeamAndTypes() {
+      const empContainer = document.getElementById("employees-list");
+      if (state.employees.length === 0) {
+        empContainer.innerHTML = '<div class="empty-msg">Nenhum funcionário cadastrado.</div>';
+      } else {
+        empContainer.innerHTML = state.employees.map(function (e) {
+          return (
+            '<div class="list-item">' +
+              '<div class="list-item-info">' +
+                '<div class="list-item-title">' + escapeHTML(e.name) + '</div>' +
+                '<div class="list-item-sub">Comissão padrão: <strong style="color:var(--accent);">' + e.defaultPercent + '%</strong></div>' +
+              '</div>' +
+              '<div style="display:flex; gap:6px;">' +
+                '<button type="button" class="btn btn-secondary btn-sm" onclick="openEditEmployeeModal(\'' + escapeHTML(e.id) + '\')">Editar</button>' +
+                '<button type="button" class="btn btn-danger-outline btn-sm" onclick="deleteEmployee(\'' + escapeHTML(e.id) + '\')">Excluir</button>' +
+              '</div>' +
+            '</div>'
+          );
+        }).join("");
+      }
+
+      const typesContainer = document.getElementById("service-types-manage-list");
+      if (state.serviceTypes.length === 0) {
+        typesContainer.innerHTML = '<div class="empty-msg">Nenhum tipo de serviço cadastrado.</div>';
+      } else {
+        typesContainer.innerHTML = state.serviceTypes.map(function (t) {
+          return (
+            '<div class="list-item">' +
+              '<div class="list-item-info">' +
+                '<div class="list-item-title">' + escapeHTML(t.name) + '</div>' +
+              '</div>' +
+              '<button type="button" class="btn btn-danger-outline btn-sm" onclick="deleteServiceTypeFromTab(\'' + escapeHTML(t.id) + '\')">Excluir</button>' +
+            '</div>'
+          );
+        }).join("");
+      }
+    }
+
+    // =========================================================================
+    // INICIALIZAÇÃO
+    // =========================================================================
+    window.addEventListener("DOMContentLoaded", function () {
+      loadState();
+      document.getElementById("input-date").value = getTodayISO();
+      renderFormSelects();
+      renderRecentServices();
+    });
+  </script>
+</body>
+</html>
